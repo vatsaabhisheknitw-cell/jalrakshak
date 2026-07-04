@@ -1,5 +1,8 @@
 # JalRakshak — Water Compliance SaaS
 
+**🌐 Live demo → [jalrakshak-ai.streamlit.app](https://jalrakshak-ai.streamlit.app/)**
+(free tier — may take a few seconds to wake, then click **Use sample data**)
+
 Upload daily ETP effluent data → validate against CPCB / factory-CTO discharge
 limits → flag violations → generate an SPCB-ready compliance PDF → alert on
 breaches. AI (Claude) writes the plain-language summary and recommendations.

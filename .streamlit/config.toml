@@ -1,0 +1,11 @@
+# Streamlit theme + server config (used locally and on Streamlit Community Cloud).
+# Secrets are NOT stored here — set them in the Cloud UI (Settings > Secrets).
+[theme]
+primaryColor = "#0f4c81"
+backgroundColor = "#ffffff"
+secondaryBackgroundColor = "#eef5fb"
+textColor = "#111418"
+font = "sans serif"
+
+[server]
+headless = true

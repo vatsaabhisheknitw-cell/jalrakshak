@@ -1,0 +1,8 @@
+venv/
+.venv/
+__pycache__/
+*.pyc
+.env
+jalrakshak.db
+generated_reports/
+.streamlit/secrets.toml

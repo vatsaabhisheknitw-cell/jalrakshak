@@ -1,0 +1,23 @@
+services:
+  # MVP frontend — Streamlit calls app/services directly, no separate API needed.
+  - type: web
+    name: jalrakshak-app
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: streamlit run streamlit_app/app.py --server.port $PORT --server.address 0.0.0.0
+    envVars:
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: TWILIO_ACCOUNT_SID
+        sync: false
+      - key: TWILIO_AUTH_TOKEN
+        sync: false
+    plan: starter  # $7/mo, always on
+
+  # Optional API layer — enable when the Next.js dashboard / external API is built.
+  # - type: web
+  #   name: jalrakshak-api
+  #   runtime: python
+  #   buildCommand: pip install -r requirements.txt
+  #   startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+  #   plan: starter

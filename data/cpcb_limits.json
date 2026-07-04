@@ -1,0 +1,27 @@
+{
+  "_note": "CPCB / EP Rules Schedule VI General Standards. VERIFY against the current CPCB notification and each factory's CTO before production use. Flagged rows: 'tds' has no flat general inland limit (usually sector/CTO-specific); 'temperature' general standard is typically '<=5C above ambient/receiving-water temp', not a flat 40C. Factory CTO limits override these via factory_limits.",
+  "inland_surface_water": {
+    "ph": { "min": 5.5, "max": 9.0, "unit": "" },
+    "bod": { "max": 30, "unit": "mg/L" },
+    "cod": { "max": 250, "unit": "mg/L" },
+    "tss": { "max": 100, "unit": "mg/L" },
+    "oil_grease": { "max": 10, "unit": "mg/L" },
+    "tds": { "max": 2100, "unit": "mg/L", "_verify": true },
+    "ammoniacal_nitrogen": { "max": 50, "unit": "mg/L" },
+    "temperature": { "max": 40, "unit": "°C", "_verify": "general std is <=5C above ambient" },
+    "total_chromium": { "max": 2.0, "unit": "mg/L" },
+    "hexavalent_chromium": { "max": 0.1, "unit": "mg/L" },
+    "lead": { "max": 0.1, "unit": "mg/L" },
+    "mercury": { "max": 0.01, "unit": "mg/L" },
+    "fecal_coliform": { "max": 1000, "unit": "MPN/100mL" }
+  },
+  "public_sewer": {
+    "ph": { "min": 5.5, "max": 9.0, "unit": "" },
+    "bod": { "max": 350, "unit": "mg/L" },
+    "tss": { "max": 600, "unit": "mg/L" },
+    "oil_grease": { "max": 20, "unit": "mg/L" },
+    "tds": { "max": 2100, "unit": "mg/L", "_verify": true },
+    "ammoniacal_nitrogen": { "max": 50, "unit": "mg/L" },
+    "temperature": { "max": 45, "unit": "°C" }
+  }
+}

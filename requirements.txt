@@ -1,0 +1,16 @@
+# Core MVP (Streamlit-first)
+streamlit>=1.36
+pandas>=2.2
+openpyxl>=3.1
+plotly>=5.22
+reportlab>=4.2
+anthropic>=0.40
+python-dotenv>=1.0
+
+# Alerts
+twilio>=9.2
+
+# Optional API layer (not required for the MVP)
+fastapi>=0.111
+uvicorn>=0.30
+pydantic>=2.7

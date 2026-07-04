@@ -1,0 +1,28 @@
+{
+  "_note": "Sector-specific overrides layered on top of the general standards. VERIFY against the applicable CPCB sector notification and the factory CTO. Only parameters that differ from / add to the general standards are listed here.",
+  "textile": {
+    "bod": { "max": 30, "unit": "mg/L" },
+    "cod": { "max": 250, "unit": "mg/L" },
+    "color": { "max": 400, "unit": "PtCo (Hazen)", "_verify": true },
+    "aox": { "max": 1.0, "unit": "mg/L", "_verify": true }
+  },
+  "pharma": {
+    "bod": { "max": 30, "unit": "mg/L" },
+    "cod": { "max": 250, "unit": "mg/L" },
+    "tds": { "max": 2100, "unit": "mg/L", "_verify": true }
+  },
+  "tannery": {
+    "total_chromium": { "max": 2.0, "unit": "mg/L" },
+    "hexavalent_chromium": { "max": 0.1, "unit": "mg/L" },
+    "cod": { "max": 250, "unit": "mg/L" }
+  },
+  "food_processing": {
+    "bod": { "max": 30, "unit": "mg/L" },
+    "cod": { "max": 250, "unit": "mg/L" }
+  },
+  "distillery": {
+    "bod": { "max": 30, "unit": "mg/L" },
+    "cod": { "max": 250, "unit": "mg/L" },
+    "_note": "ZLD (zero liquid discharge) is often mandated — discharge limits may not apply."
+  }
+}

@@ -6,3 +6,6 @@ __pycache__/
 jalrakshak.db
 generated_reports/
 .streamlit/secrets.toml
+
+# Bulk-downloaded CPCB reference PDFs (86 files) — kept local, not committed to avoid repo bloat
+data/cpcb_standards/

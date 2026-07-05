@@ -36,28 +36,33 @@ A web app where factory ETP operators upload their daily effluent monitoring dat
 - **Green (65 sectors)** — low pollution, lighter requirements
 - **White (38 sectors)** — non-polluting, minimal compliance
 
-### CPCB General Standards — Discharge Limits (Schedule VI) — *verify against current notification*
+### CPCB General Standards — Discharge of Environmental Pollutants (EP Rules 1986, Schedule VI)
 
-> ⚠️ **Verify before shipping.** Treat this table as a draft. Confirm every row against the current CPCB / EP Rules Schedule VI notification and, more importantly, each factory's own CTO. Two rows to double-check specifically:
-> - **TDS ≤ 2100 mg/L** — there is no flat general-standard TDS limit for inland surface water; TDS is usually sector- or CTO-specific.
-> - **Temperature ≤ 40°C** — the general standard is typically *"shall not exceed 5°C above the ambient/receiving-water temperature,"* not a flat 40°C.
+> ✅ **Verified 2026-07** against the official CPCB general standards ([cpcb.nic.in/generalstandards.pdf](https://cpcb.nic.in/generalstandards.pdf), cross-checked on independent mirrors). Corrections from the earlier draft: **BOD basis is 3 days @ 27°C** (not 5 days @ 20°C); **Temperature is a delta rule**, not a flat cap; **TDS is NOT a general standard** (sector/CTO-specific); **Fecal coliform is not a general effluent standard** (IS:2296 / STP norms). Factory CTO / SPCB limits override these and may be stricter.
 
-
-| Parameter | Into Inland Surface Water | Into Public Sewer | Unit |
+| Parameter | Inland Surface Water | Public Sewer | Unit |
 |---|---|---|---|
 | pH | 5.5 – 9.0 | 5.5 – 9.0 | — |
-| BOD (5 days, 20°C) | ≤ 30 | ≤ 350 | mg/L |
+| BOD (3 days @ 27°C) | ≤ 30 | ≤ 350 | mg/L |
 | COD | ≤ 250 | — | mg/L |
-| TSS | ≤ 100 | ≤ 600 | mg/L |
+| Suspended Solids (TSS) | ≤ 100 | ≤ 600 | mg/L |
 | Oil & Grease | ≤ 10 | ≤ 20 | mg/L |
-| Total Dissolved Solids | ≤ 2100 | ≤ 2100 | mg/L |
-| Ammoniacal Nitrogen | ≤ 50 | ≤ 50 | mg/L |
+| Temperature | ≤ 5°C above receiving-water temp | ≤ 5°C above receiving-water temp | °C |
+| Ammoniacal Nitrogen (as N) | ≤ 50 | ≤ 50 | mg/L |
+| Free Ammonia (as NH₃) | ≤ 5.0 | — | mg/L |
+| Total Kjeldahl Nitrogen | ≤ 100 | — | mg/L |
+| Total Residual Chlorine | ≤ 1.0 | — | mg/L |
 | Total Chromium | ≤ 2.0 | ≤ 2.0 | mg/L |
 | Hexavalent Chromium | ≤ 0.1 | ≤ 2.0 | mg/L |
 | Lead | ≤ 0.1 | ≤ 1.0 | mg/L |
 | Mercury | ≤ 0.01 | ≤ 0.01 | mg/L |
-| Temperature | ≤ 40°C | ≤ 45°C | °C |
-| Fecal Coliform | ≤ 1000 | — | MPN/100mL |
+| Arsenic | ≤ 0.2 | ≤ 0.2 | mg/L |
+| Cyanide | ≤ 0.2 | ≤ 2.0 | mg/L |
+| Fluoride | ≤ 2.0 | ≤ 15 | mg/L |
+| Phenolic Compounds | ≤ 1.0 | ≤ 5.0 | mg/L |
+| Sulphide | ≤ 2.0 | — | mg/L |
+
+**Not general standards (never hard-code these as CPCB):** *TDS* — sector/CTO-specific (distillery, pharma, etc.); the app treats it as a CTO-configurable limit with a flagged placeholder default. *Fecal coliform* — from IS:2296 / STP norms, not industrial general effluent. For **Temperature**, the app screens with a pragmatic absolute cap (40°C inland / 45°C sewer) because the true delta rule needs the receiving-water temperature — set the real absolute limit from the CTO.
 
 **Note:** SPCBs can impose STRICTER limits than CPCB. Each factory's CTO document specifies their exact limits. Your app must allow custom limit configuration per factory.
 

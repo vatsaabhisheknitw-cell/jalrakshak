@@ -1,27 +1,48 @@
 {
-  "_note": "CPCB / EP Rules Schedule VI General Standards. VERIFY against the current CPCB notification and each factory's CTO before production use. Flagged rows: 'tds' has no flat general inland limit (usually sector/CTO-specific); 'temperature' general standard is typically '<=5C above ambient/receiving-water temp', not a flat 40C. Factory CTO limits override these via factory_limits.",
+  "_source": "Environment (Protection) Rules, 1986 — Schedule VI, General Standards for Discharge of Environmental Pollutants (CPCB). Verified 2026-07 against cpcb.nic.in/generalstandards.pdf and independent mirrors. Factory CTO / SPCB limits OVERRIDE these and are often stricter.",
+  "_notes": {
+    "bod": "BOD basis is 3 days at 27 C (Indian standard), NOT 5 days at 20 C.",
+    "temperature": "The general standard is a DELTA: 'shall not exceed 5 C above the receiving-water temperature' — not an absolute cap. The numeric max below is a pragmatic absolute PROXY used for screening only; set the real absolute limit from the factory CTO.",
+    "tds": "TDS is NOT a CPCB general standard. It is sector/CTO-specific (e.g. distillery, pharma). The value below is a CTO placeholder default, clearly flagged, not a general limit.",
+    "fecal_coliform": "Not part of the general effluent standards (comes from IS:2296 / STP norms). Deliberately omitted here."
+  },
   "inland_surface_water": {
     "ph": { "min": 5.5, "max": 9.0, "unit": "" },
-    "bod": { "max": 30, "unit": "mg/L" },
+    "bod": { "max": 30, "unit": "mg/L", "basis": "3 days at 27 C" },
     "cod": { "max": 250, "unit": "mg/L" },
     "tss": { "max": 100, "unit": "mg/L" },
     "oil_grease": { "max": 10, "unit": "mg/L" },
-    "tds": { "max": 2100, "unit": "mg/L", "_verify": true },
+    "temperature": { "max": 40, "unit": "C", "rule": "<=5 C above receiving-water temp", "source": "proxy_absolute" },
     "ammoniacal_nitrogen": { "max": 50, "unit": "mg/L" },
-    "temperature": { "max": 40, "unit": "°C", "_verify": "general std is <=5C above ambient" },
+    "free_ammonia": { "max": 5.0, "unit": "mg/L" },
+    "total_kjeldahl_nitrogen": { "max": 100, "unit": "mg/L" },
+    "total_residual_chlorine": { "max": 1.0, "unit": "mg/L" },
     "total_chromium": { "max": 2.0, "unit": "mg/L" },
     "hexavalent_chromium": { "max": 0.1, "unit": "mg/L" },
     "lead": { "max": 0.1, "unit": "mg/L" },
     "mercury": { "max": 0.01, "unit": "mg/L" },
-    "fecal_coliform": { "max": 1000, "unit": "MPN/100mL" }
+    "arsenic": { "max": 0.2, "unit": "mg/L" },
+    "cyanide": { "max": 0.2, "unit": "mg/L" },
+    "fluoride": { "max": 2.0, "unit": "mg/L" },
+    "phenolic_compounds": { "max": 1.0, "unit": "mg/L" },
+    "sulphide": { "max": 2.0, "unit": "mg/L" },
+    "tds": { "max": 2100, "unit": "mg/L", "source": "cto_specific", "_note": "NOT a CPCB general standard — set from factory CTO" }
   },
   "public_sewer": {
     "ph": { "min": 5.5, "max": 9.0, "unit": "" },
-    "bod": { "max": 350, "unit": "mg/L" },
+    "bod": { "max": 350, "unit": "mg/L", "basis": "3 days at 27 C" },
     "tss": { "max": 600, "unit": "mg/L" },
     "oil_grease": { "max": 20, "unit": "mg/L" },
-    "tds": { "max": 2100, "unit": "mg/L", "_verify": true },
+    "temperature": { "max": 45, "unit": "C", "rule": "<=5 C above receiving-water temp", "source": "proxy_absolute" },
     "ammoniacal_nitrogen": { "max": 50, "unit": "mg/L" },
-    "temperature": { "max": 45, "unit": "°C" }
+    "total_chromium": { "max": 2.0, "unit": "mg/L" },
+    "hexavalent_chromium": { "max": 2.0, "unit": "mg/L" },
+    "lead": { "max": 1.0, "unit": "mg/L" },
+    "mercury": { "max": 0.01, "unit": "mg/L" },
+    "arsenic": { "max": 0.2, "unit": "mg/L" },
+    "cyanide": { "max": 2.0, "unit": "mg/L" },
+    "fluoride": { "max": 15, "unit": "mg/L" },
+    "phenolic_compounds": { "max": 5.0, "unit": "mg/L" },
+    "tds": { "max": 2100, "unit": "mg/L", "source": "cto_specific", "_note": "NOT a CPCB general standard — set from factory CTO" }
   }
 }

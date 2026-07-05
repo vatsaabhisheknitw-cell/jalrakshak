@@ -1,5 +1,5 @@
 {
-  "_note": "Sector-specific overrides layered on top of the general standards. VERIFY against the applicable CPCB sector notification and the factory CTO. Only parameters that differ from / add to the general standards are listed here.",
+  "_note": "Sector-specific overrides layered on top of the (verified 2026-07) general standards in cpcb_limits.json. These sector values still need confirmation against the applicable CPCB sector notification and the factory CTO — _verify flags mark the least-certain ones. Only parameters that differ from / add to the general standards are listed here.",
   "textile": {
     "bod": { "max": 30, "unit": "mg/L" },
     "cod": { "max": 250, "unit": "mg/L" },

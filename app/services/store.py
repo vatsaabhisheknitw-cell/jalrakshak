@@ -154,11 +154,10 @@ def save_readings(factory_id, df: pd.DataFrame) -> int:
     return n
 
 
-def save_report(factory_id, period: str, result: dict, pdf_path: str, ai: dict) -> None:
+def save_report(factory_id, period_start, period_end, result, pdf_path, ai) -> None:
+    """period_start/period_end are ISO date strings (YYYY-MM-DD) for storage."""
     if not factory_id:
         return
-    parts = period.split(" to ")
-    start, end = parts[0], parts[-1]
     try:
         conn = get_connection()
         try:
@@ -166,7 +165,7 @@ def save_report(factory_id, period: str, result: dict, pdf_path: str, ai: dict) 
                 "INSERT INTO reports (factory_id, report_type, period_start, period_end, "
                 "total_readings, total_violations, compliance_score, ai_summary, pdf_path) "
                 "VALUES (?,?,?,?,?,?,?,?,?)",
-                (factory_id, "adhoc", start, end, result["total_readings"],
+                (factory_id, "adhoc", period_start, period_end, result["total_readings"],
                  result["violation_count"], result["compliance_score"],
                  ai.get("summary", ""), pdf_path),
             )

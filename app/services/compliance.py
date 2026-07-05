@@ -20,6 +20,7 @@ from app.config import (
     SECTOR_LIMITS_PATH,
     WARNING_FRACTION,
 )
+from app.services.dates import fmt_date
 
 
 def load_limits(discharge_destination: str, custom_limits: dict | None = None) -> dict:
@@ -76,7 +77,7 @@ def check_compliance(df: pd.DataFrame, limits: dict) -> dict:
 
             has_min = "min" in limit and limit["min"] is not None
             has_max = "max" in limit and limit["max"] is not None
-            date = str(pd.to_datetime(row["date"]).date())
+            date = fmt_date(row["date"])
             unit = limit.get("unit", "")
 
             over_max = has_max and value > limit["max"]

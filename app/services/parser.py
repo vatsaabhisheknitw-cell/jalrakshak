@@ -3,6 +3,8 @@ from __future__ import annotations
 
 import pandas as pd
 
+from app.services.dates import fmt_date
+
 REQUIRED_COLUMNS = ["date", "ph"]
 OPTIONAL_COLUMNS = [
     "bod_mg_l", "cod_mg_l", "tss_mg_l", "oil_grease_mg_l", "tds_mg_l",
@@ -68,7 +70,9 @@ def finalize(df: pd.DataFrame) -> dict:
         "success": True,
         "data": df,
         "row_count": len(df),
-        "date_range": f"{df['date'].min().date()} to {df['date'].max().date()}",
+        "date_range": f"{fmt_date(df['date'].min())} to {fmt_date(df['date'].max())}",
+        "period_start": str(df["date"].min().date()),  # ISO, for storage/sorting
+        "period_end": str(df["date"].max().date()),
         "warnings": warnings,
     }
 
@@ -124,7 +128,7 @@ def parse_upload(file_path: str) -> dict:
         "success": True,
         "data": df,
         "row_count": len(df),
-        "date_range": f"{df['date'].min().date()} to {df['date'].max().date()}",
+        "date_range": f"{fmt_date(df['date'].min())} to {fmt_date(df['date'].max())}",
         "columns_found": list(df.columns),
         "warnings": warnings,
     }

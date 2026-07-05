@@ -13,6 +13,7 @@ from reportlab.platypus import (
 )
 
 from app.config import PARAM_LABELS, REPORTS_DIR
+from app.services.dates import now_ist_str
 
 _STATUS_COLOR = {
     "ok": colors.HexColor("#1a7f37"),
@@ -56,7 +57,7 @@ def generate_report_pdf(
         ["CTO Number", factory.get("cto_number", "-")],
         ["Discharge", factory.get("discharge_destination", "-")],
         ["Reporting Period", period],
-        ["Generated", datetime.now().strftime("%Y-%m-%d %H:%M")],
+        ["Generated", now_ist_str()],
     ]
     t = Table(meta, colWidths=[45 * mm, 110 * mm])
     t.setStyle(TableStyle([

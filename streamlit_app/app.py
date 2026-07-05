@@ -21,7 +21,7 @@ import plotly.graph_objects as go
 import streamlit as st
 
 from app.config import PARAM_LABELS, PARAM_MAP, SAMPLE_DATA_PATH
-from app.services import column_mapping, compliance, parser, store
+from app.services import column_mapping, compliance, dates, parser, store
 from app.services.ai_summary import generate_compliance_summary
 from app.services.pdf_generator import generate_report_pdf
 
@@ -214,6 +214,7 @@ for i, csv_col in enumerate(plot_cols):
                       annotation_text="min limit")
     fig.update_layout(title=PARAM_LABELS.get(key, key), height=280,
                       margin=dict(l=10, r=10, t=40, b=10))
+    fig.update_xaxes(tickformat="%d-%b-%Y")
     chart_cols[i % 2].plotly_chart(fig, use_container_width=True)
 
 # --- Violations ---
@@ -229,7 +230,8 @@ if st.button("Generate AI summary + PDF report", type="primary"):
         pdf_path = generate_report_pdf(factory, period, result, param_summary, ai)
     # Persist readings + report to this factory's history (fail-safe).
     store.save_readings(factory_id, df)
-    store.save_report(factory_id, period, result, pdf_path, ai)
+    store.save_report(factory_id, parsed["period_start"], parsed["period_end"],
+                      result, pdf_path, ai)
     # Stash results so the download button survives the rerun a download click triggers.
     st.session_state["ai"] = ai
     st.session_state["pdf_path"] = pdf_path
@@ -254,8 +256,12 @@ if _reading_count or _reports:
     st.subheader("📁 History for this factory")
     st.caption(f"{_reading_count} reading(s) stored across all uploads.")
     if _reports:
+        _hist = pd.DataFrame(_reports)
+        _hist["created_at"] = _hist["created_at"].map(dates.fmt_datetime_ist)  # UTC -> IST
+        _hist["period_start"] = _hist["period_start"].map(dates.fmt_date)      # -> dd-mmm-yyyy
+        _hist["period_end"] = _hist["period_end"].map(dates.fmt_date)
         st.dataframe(
-            pd.DataFrame(_reports).rename(columns={
-                "created_at": "Generated", "period_start": "From", "period_end": "To",
+            _hist.rename(columns={
+                "created_at": "Generated (IST)", "period_start": "From", "period_end": "To",
                 "compliance_score": "Score %", "total_violations": "Violations"}),
             use_container_width=True, hide_index=True)

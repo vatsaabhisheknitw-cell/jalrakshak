@@ -3,6 +3,7 @@
   "_verification": "Extracted from primary-source PDFs and cross-checked; conditionals (TDS build-up, ZLD, land-vs-sewer) captured in per-sector _note. Sectors whose PDFs are scanned/garbled are NOT included here — see reference/INDEX.md 'needs better version' list.",
 
   "pharmaceutical": {
+    "cpcb_category": "red",
     "_source": "73-pharmaceuticals.pdf — GSR 541(E), 06-Aug-2021",
     "_note": "Mandatory params below. CETP-connected units governed by SO 4(E) 01-Jan-2016. Additional trace params (benzene 0.1, xylene 0.12, methylene chloride 0.9, chlorobenzene 0.2) prescribed by SPCB.",
     "ph": { "min": 6.0, "max": 8.5, "unit": "" },
@@ -25,6 +26,7 @@
   },
 
   "distillery_fermentation": {
+    "cpcb_category": "red",
     "_source": "Fermentation.pdf — EP Rules Schedule I, S.No.15 (Distilleries, Maltries, Breweries)",
     "_note": "Older notification. Modern distilleries are typically mandated ZERO LIQUID DISCHARGE (ZLD) by SPCB — verify per unit. BOD 30 for inland/river, 100 for land/irrigation.",
     "ph": { "min": 5.5, "max": 9.0, "unit": "" },
@@ -33,6 +35,7 @@
   },
 
   "textile": {
+    "cpcb_category": "red",
     "_source": "integrated_textile.pdf — Schedule I S.No.6 (all integrated/cotton/wool/polyester/dyeing/garment units)",
     "_note": "TDS & SAR not applicable for proper marine outfall. Large-scale units may be mandated ZLD by CPCB/SPCB. CETP-attached units follow S.No.55 (CETP).",
     "ph": { "min": 6.5, "max": 8.5, "unit": "" },
@@ -50,6 +53,7 @@
   },
 
   "tannery": {
+    "cpcb_category": "red",
     "_source": "449.pdf — Schedule I S.No.57 (Tanneries, all disposal modes)",
     "_note": "TDS 2100; where intake TDS >1100, up to +1000 contribution allowed provided <=3100 in treated effluent. Chrome recovery plant + reuse mandated.",
     "ph": { "min": 6.0, "max": 9.0, "unit": "" },
@@ -64,6 +68,7 @@
   },
 
   "slaughter_meat_seafood": {
+    "cpcb_category": "red",
     "_source": "442-1.pdf — Schedule I S.No.50",
     "_note": "BOD may be relaxed to 100 if discharged to municipal sewer leading to full STP. Seafood sub-category: BOD 30, SS 50, O&G 10.",
     "ph": { "min": 6.5, "max": 8.5, "unit": "" },
@@ -74,6 +79,7 @@
   },
 
   "pulp_paper": {
+    "cpcb_category": "red",
     "_source": "PulpandPaper.pdf — Schedule I S.No.14 (chemical pulp)",
     "_note": "TDS build-up rule: intake>1100 -> +1000 allowed, cap 3100. Recycled-fibre sub-category: AOX 05, SAR 08. TDS/SAR n/a for marine outfall.",
     "ph": { "min": 6.5, "max": 8.5, "unit": "" },
@@ -87,6 +93,7 @@
   },
 
   "caustic_soda": {
+    "cpcb_category": "red",
     "_source": "Caustic_soda-industry.pdf — EP (Second Amendment) Rules 2025, S.No.1",
     "_note": "Membrane-cell plants; not for CETP dischargers or deep-sea disposal. TDS: built-up not to exceed +1000 over intake, cap 3100, SAR <=26. Chloride/sulphate effective 2 yrs after 2025 for old plants.",
     "ph": { "min": 6.5, "max": 8.5, "unit": "" },
@@ -99,6 +106,7 @@
   },
 
   "pesticide": {
+    "cpcb_category": "red",
     "_source": "Pesticide_2025.pdf — EP (Second Amendment) Rules 2025",
     "_note": "COD 250 for technical-grade + formulation units, 150 for formulation-only. TDS/sulphate/chloride set by SPCB per receiving body. Numerous specific-pesticide sub-limits (BHC/DDT 0.01 etc.) in source.",
     "ph": { "min": 6.5, "max": 8.5, "unit": "" },
@@ -118,6 +126,7 @@
   },
 
   "fertilizer_nitrogenous": {
+    "cpcb_category": "red",
     "_source": "17-fertiliser_industry.pdf — nitrogenous / urea / ammonia plants",
     "_note": "Nitrate-N: 10 for urea plant, 20 for separated stream. Complex/NPK plants: free ammonia 4.0, nitrate-N 20, dissolved phosphate 5.0, fluoride 10.",
     "ph": { "min": 6.5, "max": 8.5, "unit": "" },
@@ -131,6 +140,7 @@
   },
 
   "edible_oil_vanaspati": {
+    "cpcb_category": "orange",
     "_source": "456-1.pdf — Schedule I S.No.67",
     "_note": "BOD stringent to 30 if recipient is a drinking-water source.",
     "temperature": { "max": 5, "unit": "C above ambient", "rule": "<=5 C above recipient waterbody" },
@@ -142,6 +152,7 @@
   },
 
   "organic_chemicals": {
+    "cpcb_category": "red",
     "_source": "456-1.pdf — Schedule I S.No.68 (recovered from consolidated PDF)",
     "_note": "No COD limit prescribed but monitored; if persistently >250, identify chemicals.",
     "ph": { "min": 6.5, "max": 8.5, "unit": "" },
@@ -162,6 +173,7 @@
   },
 
   "inorganic_chemicals": {
+    "cpcb_category": "red",
     "_source": "438.pdf — Schedule I S.No.43",
     "_note": "Total heavy metals limited to 7 mg/L in aggregate.",
     "ph": { "min": 6.0, "max": 8.5, "unit": "" },
@@ -181,6 +193,7 @@
   },
 
   "dye_and_dye_intermediate": {
+    "cpcb_category": "red",
     "_source": "439.pdf — Schedule I S.No.45 (recovered from consolidated PDF)",
     "_note": "Colour in Hazen units.",
     "ph": { "min": 6.0, "max": 8.5, "unit": "" },
@@ -201,6 +214,7 @@
   },
 
   "bullion_refining": {
+    "cpcb_category": "orange",
     "_source": "439.pdf — Schedule I S.No.44",
     "ph": { "min": 6.5, "max": 8.5, "unit": "" },
     "tss": { "max": 100, "unit": "mg/L" },
@@ -217,6 +231,7 @@
   },
 
   "paint": {
+    "cpcb_category": "red",
     "_source": "437.pdf — Schedule I S.No.42 (recovered from consolidated PDF)",
     "ph": { "min": 6.0, "max": 8.5, "unit": "" },
     "tss": { "max": 100, "unit": "mg/L" },
@@ -227,6 +242,7 @@
   },
 
   "man_made_fibre": {
+    "cpcb_category": "red",
     "_source": "451-1.pdf — Schedule I S.No.60 (semi-synthetic) (recovered from consolidated PDF)",
     "ph": { "min": 5.5, "max": 9.0, "unit": "" },
     "tss": { "max": 100, "unit": "mg/L" },
@@ -235,6 +251,7 @@
   },
 
   "starch": {
+    "cpcb_category": "orange",
     "_source": "453-1.pdf — Schedule I S.No.63 (maize products)",
     "_note": "BOD conditional: stringent to 30 if recipient is drinking-water source; up to 350 for land/sewer leading to secondary treatment. Base BOD value unclear in source extraction — verify.",
     "ph": { "min": 6.5, "max": 8.5, "unit": "" },
@@ -242,6 +259,7 @@
   },
 
   "coffee": {
+    "cpcb_category": "orange",
     "_source": "35-coffee.pdf — Schedule I S.No.35",
     "_note": "No discharge to surface water / groundwater recharge permitted. BOD 100 for land irrigation; wet processing stored in lined lagoons (BOD up to 1000 for storage).",
     "ph": { "min": 6.5, "max": 8.5, "unit": "" },
@@ -249,6 +267,7 @@
   },
 
   "battery_lead_acid": {
+    "cpcb_category": "red",
     "_source": "479-1.pdf — lead-acid battery effluent",
     "ph": { "min": 6.5, "max": 8.5, "unit": "" },
     "tss": { "max": 50, "unit": "mg/L" },
@@ -256,6 +275,7 @@
   },
 
   "battery_dry_cell": {
+    "cpcb_category": "orange",
     "_source": "479-1.pdf — dry cell manufacturing effluent",
     "ph": { "min": 6.5, "max": 8.5, "unit": "" },
     "tss": { "max": 100, "unit": "mg/L" },
@@ -265,6 +285,7 @@
   },
 
   "coal_washery": {
+    "cpcb_category": "orange",
     "_source": "482-1.pdf — coal washery final outlet",
     "ph": { "min": 5.5, "max": 9.0, "unit": "" },
     "tss": { "max": 100, "unit": "mg/L" },
@@ -275,6 +296,7 @@
   },
 
   "coal_mine": {
+    "cpcb_category": "red",
     "_source": "494-1.pdf — coal mine effluent (sewer/stream/land)",
     "_note": "TSS 200 for land irrigation. Other Schedule VI params apply as optional (annual monitoring).",
     "ph": { "min": 5.5, "max": 9.0, "unit": "" },
@@ -284,6 +306,7 @@
   },
 
   "oil_gas_drilling": {
+    "cpcb_category": "red",
     "_source": "463-1.pdf — Schedule I S.No.72, on-shore discharge",
     "ph": { "min": 5.5, "max": 9.0, "unit": "" },
     "temperature": { "max": 40, "unit": "C" },
@@ -308,6 +331,7 @@
   },
 
   "sewage_treatment_plant": {
+    "cpcb_category": "blue",
     "_source": "105-sewage_treatment_plants.pdf — Schedule I S.No.105",
     "_note": "Stricter set (BOD 20, TSS <50) applies to metro cities (incl. HYDERABAD) & most state capitals; other areas BOD 30, TSS <100. Fecal coliform n/a for industrial reuse.",
     "ph": { "min": 6.5, "max": 9.0, "unit": "" },
@@ -317,6 +341,7 @@
   },
 
   "thermal_power_effluent": {
+    "cpcb_category": "red",
     "_source": "TPP_Effluent_Norms.pdf — Schedule I S.No.5",
     "_note": "Stream-specific in source: condenser cooling (pH 6.5-8.5, temp <=5C above intake, free Cl 0.5); boiler blowdown (SS 100, O&G 20, Cu 1, Fe 1); cooling-tower blowdown (free Cl 0.5, Zn 1, Cr 0.2, PO4 5); ash pond (SS 100, O&G 20). New plants (post-2017): ZLD.",
     "ph": { "min": 6.5, "max": 8.5, "unit": "" },
@@ -325,6 +350,7 @@
   },
 
   "glass": {
+    "cpcb_category": "red",
     "_source": "441-1.pdf — Schedule I S.No.48 (effluent portion; rest is air emissions)",
     "ph": { "min": 6.5, "max": 8.5, "unit": "" },
     "tss": { "max": 100, "unit": "mg/L" },
@@ -332,6 +358,7 @@
   },
 
   "food_processing": {
+    "cpcb_category": "orange",
     "_source": "51-Food_Proicessing.pdf — Schedule I S.No.51 (OCR-extracted)",
     "_note": "Sub-categories: soft drinks (SS 100), fruit & veg (SS 50), bakery/biscuit (BOD up to 200). Values below are the common/soft-drink case.",
     "ph": { "min": 6.5, "max": 8.5, "unit": "" },
@@ -341,6 +368,7 @@
   },
 
   "sugar": {
+    "cpcb_category": "red",
     "_source": "Sugar.pdf — GSR 35(E), 14-Jan-2016 (OCR-extracted)",
     "_note": "TSS/BOD are 30 for surface-water disposal, 100 for land disposal. Final effluent discharge restricted to 200 L/tonne cane, single outlet.",
     "ph": { "min": 5.5, "max": 8.5, "unit": "" },
@@ -350,6 +378,7 @@
   },
 
   "iron_steel_integrated": {
+    "cpcb_category": "red",
     "_source": "Iron_steel(integrated).pdf — Schedule I S.No.94 (OCR-extracted)",
     "_note": "Values are the coke-oven (by-product) effluent stream. Sintering/blast-furnace sub-plants have their own (mostly pH/SS/O&G) limits.",
     "ph": { "min": 6.0, "max": 8.5, "unit": "" },
@@ -363,6 +392,7 @@
   },
 
   "petroleum_refinery": {
+    "cpcb_category": "red",
     "_source": "03-petroleum_oil_refinery.pdf — GSR 186(E) 2008 concentration standard (OCR-extracted)",
     "_note": "Strict concentration-based standard. OCR-derived — spot-verify small digits against the PDF before staking compliance on them.",
     "ph": { "min": 6.0, "max": 8.5, "unit": "" },
@@ -385,6 +415,7 @@
   },
 
   "soda_ash": {
+    "cpcb_category": "red",
     "_source": "sodaash.pdf — Schedule I S.No.7 (OCR-extracted)",
     "_note": "Solvay process has separate marine/creek/estuary SS limits (200-1000). Values below are the Dual-process inland-surface-water case. Temperature <=5 C above ambient.",
     "ph": { "min": 6.5, "max": 9.0, "unit": "" },
@@ -398,6 +429,7 @@
   },
 
   "electroplating": {
+    "cpcb_category": "red",
     "_source": "Rev_Stand_ElectPlate_30032012.pdf — GSR (2012), Schedule I S.No.9 (OCR-extracted)",
     "_note": "Process-specific extras vary (Ni/Cr, Zn/Cu/Cd, anodizing, cyanide baths). 'total_metal' = combined Zn+Cu+Ni+Al+Fe+Cr+Cd+Pb+Sn+Ag.",
     "ph": { "min": 6.0, "max": 9.0, "unit": "" },
@@ -414,6 +446,7 @@
   },
 
   "jute_processing": {
+    "cpcb_category": "orange",
     "_source": "52-Jute_Processing.pdf — Schedule I S.No.52 (OCR-extracted)",
     "_note": "Water consumption 1.5 cum/tonne of product. No colour limit but remove as far as possible.",
     "ph": { "min": 5.5, "max": 9.0, "unit": "" },
@@ -423,6 +456,7 @@
   },
 
   "hotel": {
+    "cpcb_category": "red",
     "_source": "39-hotel.pdf — Schedule I S.No.39 (OCR-extracted)",
     "_note": "Applies to hotels >=20 bedrooms (also banquet halls / restaurants per thresholds). Oil & grease trap required; if discharging to sewer->STP, general Schedule-VI standards apply instead.",
     "ph": { "min": 5.5, "max": 9.0, "unit": "" },
@@ -432,6 +466,7 @@
   },
 
   "flour_grain_processing": {
+    "cpcb_category": "green",
     "_source": "458-1.pdf — Schedule I (OCR-extracted, PARTIAL)",
     "_note": "OCR legible only for pH and oil & grease; SS and BOD values did not extract cleanly — VERIFY against the PDF before use.",
     "ph": { "min": 5.5, "max": 9.0, "unit": "" },

@@ -42,10 +42,21 @@ _name = st.sidebar.text_input("Factory name", "Demo Pharma Pvt Ltd")
 sector_choice = st.sidebar.selectbox(
     "Industry / sector", _sector_keys, format_func=_sector_label,
     help="Applies that sector's CPCB effluent standard on top of the general standards.")
+
+# Auto-fill CPCB category from the selected sector (CPCB Jan-2025 classification).
+# Keyed per sector so switching sector resets to that sector's category; still overridable.
+_CATS = ["red", "orange", "green", "white", "blue"]
+_sec_meta = {} if sector_choice == GENERAL else compliance.load_sector_limits().get(sector_choice, {})
+_auto_cat = _sec_meta.get("cpcb_category", "red")
+_cat_index = _CATS.index(_auto_cat) if _auto_cat in _CATS else 0
+
 factory = {
     "name": _name,
     "industry_type": _sector_label(sector_choice),
-    "cpcb_category": st.sidebar.selectbox("CPCB category", ["red", "orange", "green", "white"]),
+    "cpcb_category": st.sidebar.selectbox(
+        "CPCB category", _CATS, index=_cat_index, format_func=str.title,
+        key=f"cat_{sector_choice}",
+        help="Auto-set from the selected sector (CPCB classification, Jan 2025). Override if needed."),
     "discharge_destination": st.sidebar.selectbox(
         "Discharge to", ["inland_surface_water", "public_sewer"]),
     "cto_number": st.sidebar.text_input("CTO number", "APSPCB/CTO/2026/XXXX"),

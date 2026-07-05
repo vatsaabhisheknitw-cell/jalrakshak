@@ -161,3 +161,13 @@ Installed Tesseract locally and OCR'd the scanned/garbled PDFs. **Newly extracte
 **No effluent standard exists** (emissions-only notifications — effluent falls under the general standards): Smelting (Cu/Pb/Zn), Sulphuric Acid, Sponge Iron, Refractory, Plaster of Paris, Common Hazardous Waste Incinerator. `425.pdf` is identified as **Thermal Power Plant 2015 norms** (emission + water-consumption, not a discharge table).
 
 **Still need a cleaner source** (OCR only partial): `458-1` flour/grain (SS & BOD not legible), `103-cashew` (BOD/SS/phenols not legible).
+
+
+## CPCB category (Red/Orange/Green/White/Blue)
+Each sector in `sector_limits.json` now carries a `cpcb_category`, sourced from
+`categorization/CPCB_categorization.pdf` (CPCB "Classification of Sectors", Jan 2025 —
+adds a new **Blue** category for essential environmental services e.g. STPs).
+`categorization/ConsolidatedIndustryCategorizationListAugust2025.pdf` (Telangana) is
+kept for cross-verification. Counts across the 35 sectors: 25 Red, 8 Orange, 1 Green, 1 Blue.
+The app auto-fills the CPCB category dropdown from the selected sector (overridable).
+Note: a few are conditional (e.g. bullion, glass, hotel, paint vary by scale/process) — verify against the source for edge cases.

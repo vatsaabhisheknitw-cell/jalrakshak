@@ -1,4 +1,5 @@
 """Central config: paths, model, and reusable constants for JalRakshak."""
+import os
 from pathlib import Path
 
 # --- Paths ---
@@ -7,7 +8,10 @@ DATA_DIR = BASE_DIR / "data"
 CPCB_LIMITS_PATH = DATA_DIR / "cpcb_limits.json"
 SECTOR_LIMITS_PATH = DATA_DIR / "sector_limits.json"
 SAMPLE_DATA_PATH = DATA_DIR / "sample_data.csv"
-DB_PATH = BASE_DIR / "jalrakshak.db"
+# Override with JALRAKSHAK_DB_PATH to use a durable disk (Streamlit Cloud's local
+# filesystem is EPHEMERAL — wiped on reboot; point this at a persistent volume /
+# hosted DB for production durability).
+DB_PATH = Path(os.environ.get("JALRAKSHAK_DB_PATH", str(BASE_DIR / "jalrakshak.db")))
 REPORTS_DIR = BASE_DIR / "generated_reports"
 
 # --- AI ---

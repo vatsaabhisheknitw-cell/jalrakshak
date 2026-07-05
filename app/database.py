@@ -114,6 +114,19 @@ CREATE TABLE IF NOT EXISTS alerts (
     sent_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (factory_id) REFERENCES factories(id)
 );
+
+-- Remembered column mapping per factory (see services/column_mapping.py)
+CREATE TABLE IF NOT EXISTS column_mappings (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    factory_id INTEGER NOT NULL,
+    mapping_json TEXT NOT NULL,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (factory_id) REFERENCES factories(id)
+);
+
+-- Idempotent reading history (repeat uploads of the same day don't duplicate)
+CREATE UNIQUE INDEX IF NOT EXISTS ux_readings
+    ON readings(factory_id, reading_date, parameter, sample_point);
 """
 
 

@@ -21,9 +21,13 @@ import plotly.graph_objects as go
 import streamlit as st
 
 from app.config import PARAM_LABELS, PARAM_MAP, SAMPLE_DATA_PATH
-from app.services import column_mapping, compliance, parser
+from app.services import column_mapping, compliance, parser, store
 from app.services.ai_summary import generate_compliance_summary
 from app.services.pdf_generator import generate_report_pdf
+
+# Initialize the DB once per session (best-effort; never blocks the app).
+if "db_ready" not in st.session_state:
+    st.session_state["db_ready"] = store.bootstrap()
 
 st.set_page_config(page_title="JalRakshak — Water Compliance", page_icon="💧", layout="wide")
 
@@ -61,6 +65,18 @@ factory = {
         "Discharge to", ["inland_surface_water", "public_sewer"]),
     "cto_number": st.sidebar.text_input("CTO number", "APSPCB/CTO/2026/XXXX"),
 }
+
+# --- Persistence: remember this factory + its column mapping (fail-safe) ---
+factory_id = store.upsert_factory(factory)
+saved_mapping = store.get_mapping(factory_id)
+_all_factories = store.list_factories()
+if _all_factories:
+    st.sidebar.caption(
+        f"💾 {len(_all_factories)} factor{'y' if len(_all_factories) == 1 else 'ies'} saved"
+        + ("  ·  mapping remembered ✓" if saved_mapping else ""))
+elif not st.session_state.get("db_ready"):
+    st.sidebar.caption("⚠️ Persistence unavailable (read-only disk) — analysis still works.")
+
 if factory["cpcb_category"] == "red":
     st.sidebar.warning(
         "Red category: JalRakshak is a supplementary reporting layer, not a "
@@ -107,9 +123,13 @@ with st.expander("① Map your columns  —  auto-detected, confirm or correct",
                "to a column in your file (or leave as *not in file*). Date & pH are required.")
     mapping = {}
     _ui = st.columns(3)
+    if saved_mapping:
+        st.caption("Loaded this factory's remembered mapping — adjust if the file changed.")
     for _i, (field, label, required) in enumerate(column_mapping.CANONICAL_FIELDS):
         options = ["(not in file)"] + raw_cols
-        default = suggested.get(field)
+        # Prefer a remembered mapping whose column still exists, else auto-detect.
+        default = (saved_mapping.get(field)
+                   if saved_mapping.get(field) in raw_cols else suggested.get(field))
         idx = options.index(default) if default in options else 0
         sel = _ui[_i % 3].selectbox(
             f"{label}{' *' if required else ''}", options, index=idx,
@@ -122,6 +142,9 @@ _missing = [lbl for f, lbl, req in column_mapping.CANONICAL_FIELDS if req and f 
 if _missing:
     st.warning(f"Map the required field(s) to continue: **{', '.join(_missing)}**")
     st.stop()
+
+# Remember this mapping for the factory (fail-safe, overwrites previous).
+store.save_mapping(factory_id, mapping)
 
 # --- Validate + clean the mapped data ---
 parsed = parser.finalize(column_mapping.apply_mapping(raw, mapping))
@@ -204,6 +227,9 @@ if st.button("Generate AI summary + PDF report", type="primary"):
     with st.spinner("Analyzing..."):
         ai = generate_compliance_summary(factory["name"], result, period)
         pdf_path = generate_report_pdf(factory, period, result, param_summary, ai)
+    # Persist readings + report to this factory's history (fail-safe).
+    store.save_readings(factory_id, df)
+    store.save_report(factory_id, period, result, pdf_path, ai)
     # Stash results so the download button survives the rerun a download click triggers.
     st.session_state["ai"] = ai
     st.session_state["pdf_path"] = pdf_path
@@ -221,3 +247,15 @@ if st.session_state.get("pdf_path") and Path(st.session_state["pdf_path"]).exist
         st.download_button("⬇️ Download PDF report", f.read(),
                            file_name=Path(st.session_state["pdf_path"]).name,
                            mime="application/pdf")
+
+# --- History for this factory (from the DB) ---
+_reading_count, _reports = store.factory_history(factory_id)
+if _reading_count or _reports:
+    st.subheader("📁 History for this factory")
+    st.caption(f"{_reading_count} reading(s) stored across all uploads.")
+    if _reports:
+        st.dataframe(
+            pd.DataFrame(_reports).rename(columns={
+                "created_at": "Generated", "period_start": "From", "period_end": "To",
+                "compliance_score": "Score %", "total_violations": "Violations"}),
+            use_container_width=True, hide_index=True)

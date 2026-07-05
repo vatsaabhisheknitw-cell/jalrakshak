@@ -153,3 +153,11 @@ OCR'd copy) to add these — **starred are commercially high-value**:
 | `100-common_hazardous_waste_ (incinerator).pdf` | Common Hazardous Waste Incinerator | scanned, 0 chars |
 | `39-hotel.pdf` | Hotel Industry | scanned, 0 chars |
 | `425.pdf` | (unidentified) | scanned, 0 chars |
+
+
+## OCR update (2026-07) — most of the above resolved
+Installed Tesseract locally and OCR'd the scanned/garbled PDFs. **Newly extracted into `../sector_limits.json`:** Food Processing, Sugar, Iron & Steel (integrated), Petroleum Refinery (OCR — spot-verify small digits), Soda Ash, Electroplating, Jute, Hotel, and Flour/Grain (partial — pH & O&G only).
+
+**No effluent standard exists** (emissions-only notifications — effluent falls under the general standards): Smelting (Cu/Pb/Zn), Sulphuric Acid, Sponge Iron, Refractory, Plaster of Paris, Common Hazardous Waste Incinerator. `425.pdf` is identified as **Thermal Power Plant 2015 norms** (emission + water-consumption, not a discharge table).
+
+**Still need a cleaner source** (OCR only partial): `458-1` flour/grain (SS & BOD not legible), `103-cashew` (BOD/SS/phenols not legible).

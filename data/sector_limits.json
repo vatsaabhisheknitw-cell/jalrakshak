@@ -329,5 +329,112 @@
     "ph": { "min": 6.5, "max": 8.5, "unit": "" },
     "tss": { "max": 100, "unit": "mg/L" },
     "oil_grease": { "max": 10, "unit": "mg/L" }
+  },
+
+  "food_processing": {
+    "_source": "51-Food_Proicessing.pdf — Schedule I S.No.51 (OCR-extracted)",
+    "_note": "Sub-categories: soft drinks (SS 100), fruit & veg (SS 50), bakery/biscuit (BOD up to 200). Values below are the common/soft-drink case.",
+    "ph": { "min": 6.5, "max": 8.5, "unit": "" },
+    "tss": { "max": 100, "unit": "mg/L" },
+    "oil_grease": { "max": 10, "unit": "mg/L" },
+    "bod": { "max": 30, "unit": "mg/L" }
+  },
+
+  "sugar": {
+    "_source": "Sugar.pdf — GSR 35(E), 14-Jan-2016 (OCR-extracted)",
+    "_note": "TSS/BOD are 30 for surface-water disposal, 100 for land disposal. Final effluent discharge restricted to 200 L/tonne cane, single outlet.",
+    "ph": { "min": 5.5, "max": 8.5, "unit": "" },
+    "tss": { "max": 30, "unit": "mg/L", "_note": "100 for land disposal" },
+    "bod": { "max": 30, "unit": "mg/L", "_note": "100 for land disposal" },
+    "oil_grease": { "max": 10, "unit": "mg/L" }
+  },
+
+  "iron_steel_integrated": {
+    "_source": "Iron_steel(integrated).pdf — Schedule I S.No.94 (OCR-extracted)",
+    "_note": "Values are the coke-oven (by-product) effluent stream. Sintering/blast-furnace sub-plants have their own (mostly pH/SS/O&G) limits.",
+    "ph": { "min": 6.0, "max": 8.5, "unit": "" },
+    "tss": { "max": 100, "unit": "mg/L" },
+    "bod": { "max": 30, "unit": "mg/L" },
+    "cod": { "max": 250, "unit": "mg/L" },
+    "oil_grease": { "max": 10, "unit": "mg/L" },
+    "ammoniacal_nitrogen": { "max": 50, "unit": "mg/L" },
+    "cyanide": { "max": 0.2, "unit": "mg/L" },
+    "phenolic_compounds": { "max": 1.0, "unit": "mg/L" }
+  },
+
+  "petroleum_refinery": {
+    "_source": "03-petroleum_oil_refinery.pdf — GSR 186(E) 2008 concentration standard (OCR-extracted)",
+    "_note": "Strict concentration-based standard. OCR-derived — spot-verify small digits against the PDF before staking compliance on them.",
+    "ph": { "min": 6.0, "max": 8.5, "unit": "" },
+    "oil_grease": { "max": 5.0, "unit": "mg/L" },
+    "bod": { "max": 15, "unit": "mg/L", "_note": "OCR read ~13; refinery std is 15 — verify" },
+    "cod": { "max": 125, "unit": "mg/L" },
+    "tss": { "max": 20, "unit": "mg/L" },
+    "phenolic_compounds": { "max": 0.35, "unit": "mg/L" },
+    "sulphide": { "max": 0.3, "unit": "mg/L" },
+    "ammoniacal_nitrogen": { "max": 15, "unit": "mg/L" },
+    "total_kjeldahl_nitrogen": { "max": 40, "unit": "mg/L" },
+    "phosphate": { "max": 3.0, "unit": "mg/L" },
+    "hexavalent_chromium": { "max": 0.1, "unit": "mg/L" },
+    "total_chromium": { "max": 2.0, "unit": "mg/L" },
+    "lead": { "max": 0.1, "unit": "mg/L" },
+    "mercury": { "max": 0.01, "unit": "mg/L" },
+    "zinc": { "max": 5.0, "unit": "mg/L" },
+    "nickel": { "max": 1.0, "unit": "mg/L" },
+    "copper": { "max": 1.0, "unit": "mg/L" }
+  },
+
+  "soda_ash": {
+    "_source": "sodaash.pdf — Schedule I S.No.7 (OCR-extracted)",
+    "_note": "Solvay process has separate marine/creek/estuary SS limits (200-1000). Values below are the Dual-process inland-surface-water case. Temperature <=5 C above ambient.",
+    "ph": { "min": 6.5, "max": 9.0, "unit": "" },
+    "tss": { "max": 100, "unit": "mg/L" },
+    "oil_grease": { "max": 10, "unit": "mg/L" },
+    "ammoniacal_nitrogen": { "max": 50, "unit": "mg/L" },
+    "nitrate_nitrogen": { "max": 10, "unit": "mg/L" },
+    "cyanide": { "max": 2, "unit": "mg/L" },
+    "hexavalent_chromium": { "max": 0.1, "unit": "mg/L" },
+    "total_chromium": { "max": 2, "unit": "mg/L" }
+  },
+
+  "electroplating": {
+    "_source": "Rev_Stand_ElectPlate_30032012.pdf — GSR (2012), Schedule I S.No.9 (OCR-extracted)",
+    "_note": "Process-specific extras vary (Ni/Cr, Zn/Cu/Cd, anodizing, cyanide baths). 'total_metal' = combined Zn+Cu+Ni+Al+Fe+Cr+Cd+Pb+Sn+Ag.",
+    "ph": { "min": 6.0, "max": 9.0, "unit": "" },
+    "temperature": { "max": 5, "unit": "C above ambient", "rule": "<=5 C above receiving-body temp" },
+    "oil_grease": { "max": 10, "unit": "mg/L" },
+    "tss": { "max": 100, "unit": "mg/L" },
+    "total_metal": { "max": 10, "unit": "mg/L" },
+    "ammoniacal_nitrogen": { "max": 50, "unit": "mg/L" },
+    "hexavalent_chromium": { "max": 0.1, "unit": "mg/L" },
+    "total_chromium": { "max": 2, "unit": "mg/L" },
+    "cyanide": { "max": 0.2, "unit": "mg/L" },
+    "sulphide": { "max": 2, "unit": "mg/L" },
+    "copper": { "max": 3, "unit": "mg/L" }
+  },
+
+  "jute_processing": {
+    "_source": "52-Jute_Processing.pdf — Schedule I S.No.52 (OCR-extracted)",
+    "_note": "Water consumption 1.5 cum/tonne of product. No colour limit but remove as far as possible.",
+    "ph": { "min": 5.5, "max": 9.0, "unit": "" },
+    "bod": { "max": 30, "unit": "mg/L" },
+    "tss": { "max": 100, "unit": "mg/L" },
+    "oil_grease": { "max": 10, "unit": "mg/L" }
+  },
+
+  "hotel": {
+    "_source": "39-hotel.pdf — Schedule I S.No.39 (OCR-extracted)",
+    "_note": "Applies to hotels >=20 bedrooms (also banquet halls / restaurants per thresholds). Oil & grease trap required; if discharging to sewer->STP, general Schedule-VI standards apply instead.",
+    "ph": { "min": 5.5, "max": 9.0, "unit": "" },
+    "bod": { "max": 100, "unit": "mg/L" },
+    "tss": { "max": 100, "unit": "mg/L" },
+    "phosphate": { "max": 1.0, "unit": "mg/L" }
+  },
+
+  "flour_grain_processing": {
+    "_source": "458-1.pdf — Schedule I (OCR-extracted, PARTIAL)",
+    "_note": "OCR legible only for pH and oil & grease; SS and BOD values did not extract cleanly — VERIFY against the PDF before use.",
+    "ph": { "min": 5.5, "max": 9.0, "unit": "" },
+    "oil_grease": { "max": 20, "unit": "mg/L" }
   }
 }

@@ -214,7 +214,8 @@
   },
 
   "bullion_refining": {
-    "cpcb_category": "orange",
+    "cpcb_category": "green",
+    "_cat_note": "Green per Telangana CPCB list 2025 (gold/silver smithy, assaying/hallmarking). Larger cyanide/acid refining may warrant stricter classification — verify.",
     "_source": "439.pdf — Schedule I S.No.44",
     "ph": { "min": 6.5, "max": 8.5, "unit": "" },
     "tss": { "max": 100, "unit": "mg/L" },
@@ -232,6 +233,7 @@
 
   "paint": {
     "cpcb_category": "red",
+    "_cat_note": "Red for paint/varnish manufacturing >=15 TPD (solvent/water/powder); Orange for <15 TPD or blending-and-mixing only (Telangana CPCB list 2025).",
     "_source": "437.pdf — Schedule I S.No.42 (recovered from consolidated PDF)",
     "ph": { "min": 6.0, "max": 8.5, "unit": "" },
     "tss": { "max": 100, "unit": "mg/L" },
@@ -350,7 +352,8 @@
   },
 
   "glass": {
-    "cpcb_category": "red",
+    "cpcb_category": "orange",
+    "_cat_note": "Orange for glass manufacturing (oil/coal/gas fired); Red only for ceramics/glass with coal/oil kilns >=12 TPD (Telangana CPCB list 2025).",
     "_source": "441-1.pdf — Schedule I S.No.48 (effluent portion; rest is air emissions)",
     "ph": { "min": 6.5, "max": 8.5, "unit": "" },
     "tss": { "max": 100, "unit": "mg/L" },
@@ -456,7 +459,8 @@
   },
 
   "hotel": {
-    "cpcb_category": "red",
+    "cpcb_category": "orange",
+    "_cat_note": "Orange for hotels >20 and <100 rooms; Red for >=100 rooms / above 3-star; Green for <=20 rooms (Telangana CPCB list 2025).",
     "_source": "39-hotel.pdf — Schedule I S.No.39 (OCR-extracted)",
     "_note": "Applies to hotels >=20 bedrooms (also banquet halls / restaurants per thresholds). Oil & grease trap required; if discharging to sewer->STP, general Schedule-VI standards apply instead.",
     "ph": { "min": 5.5, "max": 9.0, "unit": "" },

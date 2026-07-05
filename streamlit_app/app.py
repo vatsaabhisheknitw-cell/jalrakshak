@@ -30,10 +30,21 @@ st.set_page_config(page_title="JalRakshak — Water Compliance", page_icon="💧
 # --- Sidebar: factory config ---
 st.sidebar.title("💧 JalRakshak")
 st.sidebar.caption("Water compliance for Indian industries")
+GENERAL = "(General standards only)"
+
+
+def _sector_label(key: str) -> str:
+    return "General standards only" if key == GENERAL else key.replace("_", " ").title()
+
+
+_sector_keys = [GENERAL] + compliance.sector_names()
+_name = st.sidebar.text_input("Factory name", "Demo Pharma Pvt Ltd")
+sector_choice = st.sidebar.selectbox(
+    "Industry / sector", _sector_keys, format_func=_sector_label,
+    help="Applies that sector's CPCB effluent standard on top of the general standards.")
 factory = {
-    "name": st.sidebar.text_input("Factory name", "Demo Pharma Pvt Ltd"),
-    "industry_type": st.sidebar.selectbox(
-        "Industry", ["pharma", "textile", "tannery", "food_processing", "distillery"]),
+    "name": _name,
+    "industry_type": _sector_label(sector_choice),
     "cpcb_category": st.sidebar.selectbox("CPCB category", ["red", "orange", "green", "white"]),
     "discharge_destination": st.sidebar.selectbox(
         "Discharge to", ["inland_surface_water", "public_sewer"]),
@@ -82,9 +93,19 @@ for w in parsed["warnings"]:
 st.caption(f"Parsed {parsed['row_count']} rows · {parsed['date_range']}")
 
 # --- Compliance ---
-limits = compliance.load_limits(factory["discharge_destination"])
+overrides = {} if sector_choice == GENERAL else compliance.sector_overrides(sector_choice)
+limits = compliance.load_limits(factory["discharge_destination"], overrides or None)
 result = compliance.check_compliance(df, limits)
 param_summary = compliance.parameter_summary(df, limits)
+
+if overrides:
+    _sec = compliance.load_sector_limits().get(sector_choice, {})
+    st.caption(f"Applying **{_sector_label(sector_choice)}** sector limits over CPCB "
+               f"general standards · source: {_sec.get('_source', '—')}")
+    if _sec.get("_note"):
+        st.info(_sec["_note"])
+else:
+    st.caption("Applying **CPCB general standards** (no sector selected).")
 period = parsed["date_range"]
 
 # --- Scoreboard ---

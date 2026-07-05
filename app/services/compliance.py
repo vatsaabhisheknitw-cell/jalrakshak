@@ -17,6 +17,7 @@ from app.config import (
     CPCB_LIMITS_PATH,
     PARAM_MAP,
     RANGE_WARN_FRACTION,
+    SECTOR_LIMITS_PATH,
     WARNING_FRACTION,
 )
 
@@ -33,6 +34,29 @@ def load_limits(discharge_destination: str, custom_limits: dict | None = None) -
         for param, values in custom_limits.items():
             limits[param] = values
     return limits
+
+
+def load_sector_limits() -> dict:
+    """All sector-specific effluent standards (data/sector_limits.json)."""
+    with open(SECTOR_LIMITS_PATH, encoding="utf-8") as f:
+        return json.load(f)
+
+
+def sector_names() -> list:
+    """Sector keys available as overrides (excludes metadata keys)."""
+    return sorted(k for k in load_sector_limits() if not k.startswith("_"))
+
+
+def sector_overrides(sector: str) -> dict:
+    """Return {param: {min?, max, unit}} limits for a sector; drops _metadata."""
+    data = load_sector_limits().get(sector, {})
+    out = {}
+    for key, val in data.items():
+        if key.startswith("_"):
+            continue
+        if isinstance(val, dict) and ("max" in val or "min" in val):
+            out[key] = val
+    return out
 
 
 def check_compliance(df: pd.DataFrame, limits: dict) -> dict:

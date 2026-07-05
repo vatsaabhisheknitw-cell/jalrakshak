@@ -1,28 +1,333 @@
 {
-  "_note": "Sector-specific overrides layered on top of the (verified 2026-07) general standards in cpcb_limits.json. These sector values still need confirmation against the applicable CPCB sector notification and the factory CTO — _verify flags mark the least-certain ones. Only parameters that differ from / add to the general standards are listed here.",
+  "_about": "Sector-specific effluent discharge standards, layered on top of the verified general standards in cpcb_limits.json. Each sector's values were extracted 2026-07 from its CPCB notification PDF in data/reference/effluent-standards/ (see _source). Values apply to treated final discharge unless noted. Factory CTO / SPCB limits override these and may mandate ZLD. Internal param keys match cpcb_limits.json; extra params (colour, metals, etc.) are reference for custom checks.",
+  "_verification": "Extracted from primary-source PDFs and cross-checked; conditionals (TDS build-up, ZLD, land-vs-sewer) captured in per-sector _note. Sectors whose PDFs are scanned/garbled are NOT included here — see reference/INDEX.md 'needs better version' list.",
+
+  "pharmaceutical": {
+    "_source": "73-pharmaceuticals.pdf — GSR 541(E), 06-Aug-2021",
+    "_note": "Mandatory params below. CETP-connected units governed by SO 4(E) 01-Jan-2016. Additional trace params (benzene 0.1, xylene 0.12, methylene chloride 0.9, chlorobenzene 0.2) prescribed by SPCB.",
+    "ph": { "min": 6.0, "max": 8.5, "unit": "" },
+    "bod": { "max": 30, "unit": "mg/L" },
+    "cod": { "max": 250, "unit": "mg/L" },
+    "tss": { "max": 100, "unit": "mg/L" },
+    "oil_grease": { "max": 10, "unit": "mg/L" },
+    "ammoniacal_nitrogen": { "max": 100, "unit": "mg/L" },
+    "phosphate": { "max": 5, "unit": "mg/L" },
+    "sulphide": { "max": 2, "unit": "mg/L" },
+    "phenolic_compounds": { "max": 1, "unit": "mg/L" },
+    "zinc": { "max": 5, "unit": "mg/L" },
+    "iron": { "max": 3, "unit": "mg/L" },
+    "total_chromium": { "max": 2, "unit": "mg/L" },
+    "hexavalent_chromium": { "max": 0.1, "unit": "mg/L" },
+    "cyanide": { "max": 0.1, "unit": "mg/L" },
+    "arsenic": { "max": 0.2, "unit": "mg/L" },
+    "mercury": { "max": 0.01, "unit": "mg/L" },
+    "lead": { "max": 0.1, "unit": "mg/L" }
+  },
+
+  "distillery_fermentation": {
+    "_source": "Fermentation.pdf — EP Rules Schedule I, S.No.15 (Distilleries, Maltries, Breweries)",
+    "_note": "Older notification. Modern distilleries are typically mandated ZERO LIQUID DISCHARGE (ZLD) by SPCB — verify per unit. BOD 30 for inland/river, 100 for land/irrigation.",
+    "ph": { "min": 5.5, "max": 9.0, "unit": "" },
+    "tss": { "max": 100, "unit": "mg/L" },
+    "bod": { "max": 30, "unit": "mg/L" }
+  },
+
   "textile": {
+    "_source": "integrated_textile.pdf — Schedule I S.No.6 (all integrated/cotton/wool/polyester/dyeing/garment units)",
+    "_note": "TDS & SAR not applicable for proper marine outfall. Large-scale units may be mandated ZLD by CPCB/SPCB. CETP-attached units follow S.No.55 (CETP).",
+    "ph": { "min": 6.5, "max": 8.5, "unit": "" },
+    "tss": { "max": 100, "unit": "mg/L" },
+    "colour": { "max": 150, "unit": "PCU" },
     "bod": { "max": 30, "unit": "mg/L" },
+    "oil_grease": { "max": 10, "unit": "mg/L" },
     "cod": { "max": 250, "unit": "mg/L" },
-    "color": { "max": 400, "unit": "PtCo (Hazen)", "_verify": true },
-    "aox": { "max": 1.0, "unit": "mg/L", "_verify": true }
+    "total_chromium": { "max": 2.0, "unit": "mg/L" },
+    "sulphide": { "max": 2.0, "unit": "mg/L" },
+    "phenolic_compounds": { "max": 1.0, "unit": "mg/L" },
+    "tds": { "max": 2100, "unit": "mg/L" },
+    "sar": { "max": 26, "unit": "" },
+    "ammoniacal_nitrogen": { "max": 50, "unit": "mg/L" }
   },
-  "pharma": {
-    "bod": { "max": 30, "unit": "mg/L" },
-    "cod": { "max": 250, "unit": "mg/L" },
-    "tds": { "max": 2100, "unit": "mg/L", "_verify": true }
-  },
+
   "tannery": {
+    "_source": "449.pdf — Schedule I S.No.57 (Tanneries, all disposal modes)",
+    "_note": "TDS 2100; where intake TDS >1100, up to +1000 contribution allowed provided <=3100 in treated effluent. Chrome recovery plant + reuse mandated.",
+    "ph": { "min": 6.0, "max": 9.0, "unit": "" },
+    "bod": { "max": 20, "unit": "mg/L" },
+    "cod": { "max": 250, "unit": "mg/L" },
+    "tss": { "max": 50, "unit": "mg/L" },
+    "tds": { "max": 2100, "unit": "mg/L" },
+    "sulphide": { "max": 2.0, "unit": "mg/L" },
     "total_chromium": { "max": 2.0, "unit": "mg/L" },
     "hexavalent_chromium": { "max": 0.1, "unit": "mg/L" },
-    "cod": { "max": 250, "unit": "mg/L" }
+    "oil_grease": { "max": 10, "unit": "mg/L" }
   },
-  "food_processing": {
-    "bod": { "max": 30, "unit": "mg/L" },
-    "cod": { "max": 250, "unit": "mg/L" }
-  },
-  "distillery": {
+
+  "slaughter_meat_seafood": {
+    "_source": "442-1.pdf — Schedule I S.No.50",
+    "_note": "BOD may be relaxed to 100 if discharged to municipal sewer leading to full STP. Seafood sub-category: BOD 30, SS 50, O&G 10.",
+    "ph": { "min": 6.5, "max": 8.5, "unit": "" },
     "bod": { "max": 30, "unit": "mg/L" },
     "cod": { "max": 250, "unit": "mg/L" },
-    "_note": "ZLD (zero liquid discharge) is often mandated — discharge limits may not apply."
+    "tss": { "max": 50, "unit": "mg/L" },
+    "oil_grease": { "max": 10, "unit": "mg/L" }
+  },
+
+  "pulp_paper": {
+    "_source": "PulpandPaper.pdf — Schedule I S.No.14 (chemical pulp)",
+    "_note": "TDS build-up rule: intake>1100 -> +1000 allowed, cap 3100. Recycled-fibre sub-category: AOX 05, SAR 08. TDS/SAR n/a for marine outfall.",
+    "ph": { "min": 6.5, "max": 8.5, "unit": "" },
+    "tss": { "max": 50, "unit": "mg/L" },
+    "bod": { "max": 20, "unit": "mg/L" },
+    "cod": { "max": 250, "unit": "mg/L" },
+    "tds": { "max": 2100, "unit": "mg/L" },
+    "colour": { "max": 350, "unit": "PCU" },
+    "aox": { "max": 10, "unit": "mg/L" },
+    "sar": { "max": 10, "unit": "" }
+  },
+
+  "caustic_soda": {
+    "_source": "Caustic_soda-industry.pdf — EP (Second Amendment) Rules 2025, S.No.1",
+    "_note": "Membrane-cell plants; not for CETP dischargers or deep-sea disposal. TDS: built-up not to exceed +1000 over intake, cap 3100, SAR <=26. Chloride/sulphate effective 2 yrs after 2025 for old plants.",
+    "ph": { "min": 6.5, "max": 8.5, "unit": "" },
+    "chloride": { "max": 250, "unit": "mg/L" },
+    "tss": { "max": 100, "unit": "mg/L" },
+    "tds": { "max": 2100, "unit": "mg/L" },
+    "oil_grease": { "max": 5, "unit": "mg/L" },
+    "residual_free_chlorine": { "max": 0.5, "unit": "mg/L" },
+    "sulphate": { "max": 200, "unit": "mg/L" }
+  },
+
+  "pesticide": {
+    "_source": "Pesticide_2025.pdf — EP (Second Amendment) Rules 2025",
+    "_note": "COD 250 for technical-grade + formulation units, 150 for formulation-only. TDS/sulphate/chloride set by SPCB per receiving body. Numerous specific-pesticide sub-limits (BHC/DDT 0.01 etc.) in source.",
+    "ph": { "min": 6.5, "max": 8.5, "unit": "" },
+    "bod": { "max": 30, "unit": "mg/L" },
+    "cod": { "max": 250, "unit": "mg/L" },
+    "tss": { "max": 100, "unit": "mg/L" },
+    "oil_grease": { "max": 10, "unit": "mg/L" },
+    "cyanide": { "max": 0.1, "unit": "mg/L" },
+    "arsenic": { "max": 0.1, "unit": "mg/L" },
+    "copper": { "max": 1.0, "unit": "mg/L" },
+    "manganese": { "max": 1.0, "unit": "mg/L" },
+    "mercury": { "max": 0.01, "unit": "mg/L" },
+    "zinc": { "max": 1.0, "unit": "mg/L" },
+    "nitrate_nitrogen": { "max": 50, "unit": "mg/L" },
+    "phosphate": { "max": 5.0, "unit": "mg/L" },
+    "phenolic_compounds": { "max": 1.0, "unit": "mg/L" }
+  },
+
+  "fertilizer_nitrogenous": {
+    "_source": "17-fertiliser_industry.pdf — nitrogenous / urea / ammonia plants",
+    "_note": "Nitrate-N: 10 for urea plant, 20 for separated stream. Complex/NPK plants: free ammonia 4.0, nitrate-N 20, dissolved phosphate 5.0, fluoride 10.",
+    "ph": { "min": 6.5, "max": 8.5, "unit": "" },
+    "tss": { "max": 100, "unit": "mg/L" },
+    "oil_grease": { "max": 10, "unit": "mg/L" },
+    "ammoniacal_nitrogen": { "max": 50, "unit": "mg/L" },
+    "total_kjeldahl_nitrogen": { "max": 75, "unit": "mg/L" },
+    "free_ammonia": { "max": 2.0, "unit": "mg/L" },
+    "cyanide": { "max": 0.1, "unit": "mg/L" },
+    "nitrate_nitrogen": { "max": 10, "unit": "mg/L" }
+  },
+
+  "edible_oil_vanaspati": {
+    "_source": "456-1.pdf — Schedule I S.No.67",
+    "_note": "BOD stringent to 30 if recipient is a drinking-water source.",
+    "temperature": { "max": 5, "unit": "C above ambient", "rule": "<=5 C above recipient waterbody" },
+    "ph": { "min": 6.5, "max": 8.5, "unit": "" },
+    "tss": { "max": 150, "unit": "mg/L" },
+    "oil_grease": { "max": 20, "unit": "mg/L" },
+    "bod": { "max": 100, "unit": "mg/L" },
+    "cod": { "max": 200, "unit": "mg/L" }
+  },
+
+  "organic_chemicals": {
+    "_source": "456-1.pdf — Schedule I S.No.68 (recovered from consolidated PDF)",
+    "_note": "No COD limit prescribed but monitored; if persistently >250, identify chemicals.",
+    "ph": { "min": 6.5, "max": 8.5, "unit": "" },
+    "bod": { "max": 100, "unit": "mg/L" },
+    "oil_grease": { "max": 10, "unit": "mg/L" },
+    "nitrate_nitrogen": { "max": 10, "unit": "mg/L" },
+    "arsenic": { "max": 0.2, "unit": "mg/L" },
+    "hexavalent_chromium": { "max": 0.1, "unit": "mg/L" },
+    "total_chromium": { "max": 1.0, "unit": "mg/L" },
+    "lead": { "max": 0.1, "unit": "mg/L" },
+    "cyanide": { "max": 0.2, "unit": "mg/L" },
+    "zinc": { "max": 0.5, "unit": "mg/L" },
+    "mercury": { "max": 0.01, "unit": "mg/L" },
+    "copper": { "max": 2.0, "unit": "mg/L" },
+    "nickel": { "max": 2.0, "unit": "mg/L" },
+    "phenolic_compounds": { "max": 5.0, "unit": "mg/L" },
+    "sulphide": { "max": 2.0, "unit": "mg/L" }
+  },
+
+  "inorganic_chemicals": {
+    "_source": "438.pdf — Schedule I S.No.43",
+    "_note": "Total heavy metals limited to 7 mg/L in aggregate.",
+    "ph": { "min": 6.0, "max": 8.5, "unit": "" },
+    "tss": { "max": 30, "unit": "mg/L" },
+    "oil_grease": { "max": 10, "unit": "mg/L" },
+    "hexavalent_chromium": { "max": 0.1, "unit": "mg/L" },
+    "total_chromium": { "max": 2.0, "unit": "mg/L" },
+    "manganese": { "max": 2.0, "unit": "mg/L" },
+    "nickel": { "max": 2.0, "unit": "mg/L" },
+    "copper": { "max": 2.0, "unit": "mg/L" },
+    "zinc": { "max": 5.0, "unit": "mg/L" },
+    "cadmium": { "max": 0.2, "unit": "mg/L" },
+    "lead": { "max": 0.1, "unit": "mg/L" },
+    "mercury": { "max": 0.01, "unit": "mg/L" },
+    "cyanide": { "max": 0.2, "unit": "mg/L" },
+    "total_heavy_metals": { "max": 7.0, "unit": "mg/L" }
+  },
+
+  "dye_and_dye_intermediate": {
+    "_source": "439.pdf — Schedule I S.No.45 (recovered from consolidated PDF)",
+    "_note": "Colour in Hazen units.",
+    "ph": { "min": 6.0, "max": 8.5, "unit": "" },
+    "colour": { "max": 400, "unit": "Hazen" },
+    "tss": { "max": 100, "unit": "mg/L" },
+    "bod": { "max": 100, "unit": "mg/L" },
+    "oil_grease": { "max": 10, "unit": "mg/L" },
+    "phenolic_compounds": { "max": 1.0, "unit": "mg/L" },
+    "cadmium": { "max": 0.2, "unit": "mg/L" },
+    "copper": { "max": 2.0, "unit": "mg/L" },
+    "manganese": { "max": 2.0, "unit": "mg/L" },
+    "lead": { "max": 0.1, "unit": "mg/L" },
+    "mercury": { "max": 0.01, "unit": "mg/L" },
+    "nickel": { "max": 2.0, "unit": "mg/L" },
+    "zinc": { "max": 5.0, "unit": "mg/L" },
+    "hexavalent_chromium": { "max": 0.1, "unit": "mg/L" },
+    "total_chromium": { "max": 2.0, "unit": "mg/L" }
+  },
+
+  "bullion_refining": {
+    "_source": "439.pdf — Schedule I S.No.44",
+    "ph": { "min": 6.5, "max": 8.5, "unit": "" },
+    "tss": { "max": 100, "unit": "mg/L" },
+    "oil_grease": { "max": 10, "unit": "mg/L" },
+    "cyanide": { "max": 0.2, "unit": "mg/L" },
+    "sulphide": { "max": 0.2, "unit": "mg/L" },
+    "nitrate_nitrogen": { "max": 10, "unit": "mg/L" },
+    "residual_free_chlorine": { "max": 1.0, "unit": "mg/L" },
+    "zinc": { "max": 5.0, "unit": "mg/L" },
+    "copper": { "max": 2.0, "unit": "mg/L" },
+    "nickel": { "max": 2.0, "unit": "mg/L" },
+    "arsenic": { "max": 0.1, "unit": "mg/L" },
+    "cadmium": { "max": 0.2, "unit": "mg/L" }
+  },
+
+  "paint": {
+    "_source": "437.pdf — Schedule I S.No.42 (recovered from consolidated PDF)",
+    "ph": { "min": 6.0, "max": 8.5, "unit": "" },
+    "tss": { "max": 100, "unit": "mg/L" },
+    "bod": { "max": 50, "unit": "mg/L" },
+    "phenolic_compounds": { "max": 1.0, "unit": "mg/L" },
+    "oil_grease": { "max": 10, "unit": "mg/L" },
+    "lead": { "max": 0.1, "unit": "mg/L" }
+  },
+
+  "man_made_fibre": {
+    "_source": "451-1.pdf — Schedule I S.No.60 (semi-synthetic) (recovered from consolidated PDF)",
+    "ph": { "min": 5.5, "max": 9.0, "unit": "" },
+    "tss": { "max": 100, "unit": "mg/L" },
+    "bod": { "max": 30, "unit": "mg/L" },
+    "zinc": { "max": 1, "unit": "mg/L" }
+  },
+
+  "starch": {
+    "_source": "453-1.pdf — Schedule I S.No.63 (maize products)",
+    "_note": "BOD conditional: stringent to 30 if recipient is drinking-water source; up to 350 for land/sewer leading to secondary treatment. Base BOD value unclear in source extraction — verify.",
+    "ph": { "min": 6.5, "max": 8.5, "unit": "" },
+    "tss": { "max": 150, "unit": "mg/L" }
+  },
+
+  "coffee": {
+    "_source": "35-coffee.pdf — Schedule I S.No.35",
+    "_note": "No discharge to surface water / groundwater recharge permitted. BOD 100 for land irrigation; wet processing stored in lined lagoons (BOD up to 1000 for storage).",
+    "ph": { "min": 6.5, "max": 8.5, "unit": "" },
+    "bod": { "max": 100, "unit": "mg/L" }
+  },
+
+  "battery_lead_acid": {
+    "_source": "479-1.pdf — lead-acid battery effluent",
+    "ph": { "min": 6.5, "max": 8.5, "unit": "" },
+    "tss": { "max": 50, "unit": "mg/L" },
+    "lead": { "max": 0.1, "unit": "mg/L" }
+  },
+
+  "battery_dry_cell": {
+    "_source": "479-1.pdf — dry cell manufacturing effluent",
+    "ph": { "min": 6.5, "max": 8.5, "unit": "" },
+    "tss": { "max": 100, "unit": "mg/L" },
+    "manganese": { "max": 2, "unit": "mg/L" },
+    "mercury": { "max": 0.02, "unit": "mg/L" },
+    "zinc": { "max": 5, "unit": "mg/L" }
+  },
+
+  "coal_washery": {
+    "_source": "482-1.pdf — coal washery final outlet",
+    "ph": { "min": 5.5, "max": 9.0, "unit": "" },
+    "tss": { "max": 100, "unit": "mg/L" },
+    "oil_grease": { "max": 10, "unit": "mg/L" },
+    "bod": { "max": 30, "unit": "mg/L" },
+    "cod": { "max": 250, "unit": "mg/L" },
+    "phenolic_compounds": { "max": 1.0, "unit": "mg/L" }
+  },
+
+  "coal_mine": {
+    "_source": "494-1.pdf — coal mine effluent (sewer/stream/land)",
+    "_note": "TSS 200 for land irrigation. Other Schedule VI params apply as optional (annual monitoring).",
+    "ph": { "min": 5.5, "max": 9.0, "unit": "" },
+    "cod": { "max": 250, "unit": "mg/L" },
+    "tss": { "max": 100, "unit": "mg/L" },
+    "oil_grease": { "max": 10, "unit": "mg/L" }
+  },
+
+  "oil_gas_drilling": {
+    "_source": "463-1.pdf — Schedule I S.No.72, on-shore discharge",
+    "ph": { "min": 5.5, "max": 9.0, "unit": "" },
+    "temperature": { "max": 40, "unit": "C" },
+    "tss": { "max": 100, "unit": "mg/L" },
+    "bod": { "max": 30, "unit": "mg/L" },
+    "cod": { "max": 100, "unit": "mg/L" },
+    "tds": { "max": 2100, "unit": "mg/L" },
+    "oil_grease": { "max": 10, "unit": "mg/L" },
+    "chloride": { "max": 600, "unit": "mg/L" },
+    "sulphate": { "max": 1000, "unit": "mg/L" },
+    "zinc": { "max": 2, "unit": "mg/L" },
+    "phenolic_compounds": { "max": 1.2, "unit": "mg/L" },
+    "cyanide": { "max": 0.2, "unit": "mg/L" },
+    "fluoride": { "max": 1.5, "unit": "mg/L" },
+    "sulphide": { "max": 2.0, "unit": "mg/L" },
+    "hexavalent_chromium": { "max": 0.1, "unit": "mg/L" },
+    "total_chromium": { "max": 1.0, "unit": "mg/L" },
+    "copper": { "max": 0.2, "unit": "mg/L" },
+    "lead": { "max": 0.1, "unit": "mg/L" },
+    "mercury": { "max": 0.01, "unit": "mg/L" },
+    "nickel": { "max": 3.0, "unit": "mg/L" }
+  },
+
+  "sewage_treatment_plant": {
+    "_source": "105-sewage_treatment_plants.pdf — Schedule I S.No.105",
+    "_note": "Stricter set (BOD 20, TSS <50) applies to metro cities (incl. HYDERABAD) & most state capitals; other areas BOD 30, TSS <100. Fecal coliform n/a for industrial reuse.",
+    "ph": { "min": 6.5, "max": 9.0, "unit": "" },
+    "bod": { "max": 30, "unit": "mg/L", "_note": "20 in metros/capitals" },
+    "tss": { "max": 100, "unit": "mg/L", "_note": "50 in metros/capitals" },
+    "fecal_coliform": { "max": 1000, "unit": "MPN/100mL" }
+  },
+
+  "thermal_power_effluent": {
+    "_source": "TPP_Effluent_Norms.pdf — Schedule I S.No.5",
+    "_note": "Stream-specific in source: condenser cooling (pH 6.5-8.5, temp <=5C above intake, free Cl 0.5); boiler blowdown (SS 100, O&G 20, Cu 1, Fe 1); cooling-tower blowdown (free Cl 0.5, Zn 1, Cr 0.2, PO4 5); ash pond (SS 100, O&G 20). New plants (post-2017): ZLD.",
+    "ph": { "min": 6.5, "max": 8.5, "unit": "" },
+    "tss": { "max": 100, "unit": "mg/L" },
+    "oil_grease": { "max": 20, "unit": "mg/L" }
+  },
+
+  "glass": {
+    "_source": "441-1.pdf — Schedule I S.No.48 (effluent portion; rest is air emissions)",
+    "ph": { "min": 6.5, "max": 8.5, "unit": "" },
+    "tss": { "max": 100, "unit": "mg/L" },
+    "oil_grease": { "max": 10, "unit": "mg/L" }
   }
 }

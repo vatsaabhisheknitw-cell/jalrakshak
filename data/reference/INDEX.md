@@ -118,3 +118,38 @@ Labels are the anchor text from the CPCB effluent-emission page (2026-07). Note:
 | `integrated_textile.pdf` | Integrated textile units (cotton/wool/carpet/polyester; printing/dyeing/bleaching; garments) |
 | `sodaash.pdf` | Soda Ash Industry (Solvay Process) |
 | `stone_crushing.pdf` | Stone Crushing Unit |
+
+
+## Sector limits extracted → `../sector_limits.json`
+26 effluent sectors were extracted from these local PDFs (2026-07) and written to
+`data/sector_limits.json`, incl. pharmaceutical, distillery, textile, tannery,
+seafood/slaughter, pulp & paper, caustic soda, pesticide, fertilizer, edible oil,
+organic & inorganic chemicals, dye, bullion, paint, man-made fibre, starch, coffee,
+battery (2 types), coal washery, coal mine, oil & gas drilling, STP, thermal-power
+effluent, glass. Several were recovered from consolidated numeric PDFs (Organic
+Chemicals ← 456-1, Dye ← 439, Paint ← 437, Man-Made Fibre ← 451-1).
+
+## ⚠️ Needs a better version (could NOT extract — scanned image or garbled PDF)
+These effluent PDFs have no usable text layer (scanned) or came out as OCR garbage,
+so their values are NOT in sector_limits.json. Re-source a text-based PDF (or an
+OCR'd copy) to add these — **starred are commercially high-value**:
+
+| File | Sector | Problem |
+|---|---|---|
+| `51-Food_Proicessing.pdf` | ⭐ Food & Fruit Processing | scanned, 0 chars |
+| `Sugar.pdf` | ⭐ Sugar Industry | garbled glyph codes |
+| `Rev_Stand_ElectPlate_30032012.pdf` | ⭐ Electroplating & Anodizing | OCR garbage |
+| `Iron_steel(integrated).pdf` | Iron & Steel (Integrated) | scanned, 0 chars |
+| `Smelting.pdf` | Copper / Lead / Zinc Smelting | scanned, 0 chars |
+| `03-petroleum_oil_refinery.pdf` | Petroleum Oil Refinery | scanned, 0 chars |
+| `23-sulphuric_industry.pdf` | Sulphuric Acid Plant | scanned, 0 chars |
+| `sodaash.pdf` | Soda Ash (Solvay) | scanned, 0 chars |
+| `52-Jute_Processing.pdf` | Jute Processing | scanned, 0 chars |
+| `458-1.pdf` | Flour Mills / Grain / Paddy processing | scanned, 0 chars |
+| `Sponge_iron_plant(rotary-kiln).pdf` | Sponge Iron (Rotary Kiln) | near-empty (91 chars) |
+| `102-refractory.pdf` | Refractory | scanned, 0 chars |
+| `103-cashew_seed_industry.pdf` | Cashew Seed Processing | scanned, 0 chars |
+| `104-plaster_of_paris.pdf` | Plaster of Paris | scanned, 0 chars |
+| `100-common_hazardous_waste_ (incinerator).pdf` | Common Hazardous Waste Incinerator | scanned, 0 chars |
+| `39-hotel.pdf` | Hotel Industry | scanned, 0 chars |
+| `425.pdf` | (unidentified) | scanned, 0 chars |

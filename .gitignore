@@ -7,5 +7,7 @@ jalrakshak.db
 generated_reports/
 .streamlit/secrets.toml
 
-# Bulk-downloaded CPCB reference PDFs (86 files) — kept local, not committed to avoid repo bloat
-data/cpcb_standards/
+# Bulk reference docs (CPCB standards, water/air criteria) — kept local, not committed.
+# Only the catalog INDEX.md is tracked.
+data/reference/*
+!data/reference/INDEX.md

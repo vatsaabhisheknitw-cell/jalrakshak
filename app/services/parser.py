@@ -11,6 +11,67 @@ OPTIONAL_COLUMNS = [
     "sample_point",
 ]
 
+# Canonical columns that should be numeric (coerced; bad values -> NaN, skipped)
+NUMERIC_COLUMNS = [
+    "ph", "bod_mg_l", "cod_mg_l", "tss_mg_l", "oil_grease_mg_l", "tds_mg_l",
+    "ammoniacal_nitrogen_mg_l", "temperature_c", "flow_intake_kld",
+    "flow_discharge_kld", "flow_recycled_kld",
+]
+
+
+def read_file(file_path: str) -> pd.DataFrame:
+    """Read a CSV/Excel with its ORIGINAL column names (for the mapping UI)."""
+    if str(file_path).lower().endswith(".csv"):
+        df = pd.read_csv(file_path)
+    else:
+        df = pd.read_excel(file_path)
+    df.columns = [str(c).strip() for c in df.columns]
+    return df
+
+
+def finalize(df: pd.DataFrame) -> dict:
+    """Validate + clean a DataFrame whose columns are already the canonical names
+    (after column mapping). Coerces numerics so real-world junk (e.g. 'BDL',
+    'Below Detection Limit', blanks) becomes NaN and is skipped, not crashed on."""
+    df = df.copy()
+    if "date" not in df.columns:
+        return {"success": False, "error": "Please map the Date column."}
+    if "ph" not in df.columns:
+        return {"success": False, "error": "Please map the pH column."}
+
+    warnings: list[str] = []
+
+    df["date"] = pd.to_datetime(df["date"], format="mixed", dayfirst=True, errors="coerce")
+    bad_dates = int(df["date"].isna().sum())
+    if bad_dates:
+        warnings.append(f"{bad_dates} row(s) had unreadable dates and were skipped.")
+    df = df[df["date"].notna()]
+
+    for col in NUMERIC_COLUMNS:
+        if col in df.columns:
+            before = int(df[col].notna().sum())
+            df[col] = pd.to_numeric(df[col], errors="coerce")
+            lost = before - int(df[col].notna().sum())
+            if lost:
+                warnings.append(f"{lost} non-numeric value(s) in '{col}' ignored (e.g. 'BDL').")
+
+    if "ph" in df.columns:
+        bad_ph = df[(df["ph"] < 0) | (df["ph"] > 14)]
+        if len(bad_ph):
+            warnings.append(f"{len(bad_ph)} row(s) have pH outside 0-14.")
+
+    if df.empty:
+        return {"success": False, "error": "No valid rows remained after cleaning."}
+
+    df = df.sort_values("date").reset_index(drop=True)
+    return {
+        "success": True,
+        "data": df,
+        "row_count": len(df),
+        "date_range": f"{df['date'].min().date()} to {df['date'].max().date()}",
+        "warnings": warnings,
+    }
+
 
 def parse_upload(file_path: str) -> dict:
     """Parse a CSV/Excel upload; return validated DataFrame + diagnostics.

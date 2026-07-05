@@ -21,7 +21,7 @@ import plotly.graph_objects as go
 import streamlit as st
 
 from app.config import PARAM_LABELS, PARAM_MAP, SAMPLE_DATA_PATH
-from app.services import compliance, parser
+from app.services import column_mapping, compliance, parser
 from app.services.ai_summary import generate_compliance_summary
 from app.services.pdf_generator import generate_report_pdf
 
@@ -92,8 +92,39 @@ if source_path is None:
     st.info("Upload a file or click **Use sample data** to see a demo analysis.")
     st.stop()
 
-# --- Parse ---
-parsed = parser.parse_upload(source_path)
+# --- Read raw file + column mapping ---
+try:
+    raw = parser.read_file(source_path)
+except Exception as e:  # noqa: BLE001
+    st.error(f"Could not read file: {e}")
+    st.stop()
+raw_cols = list(raw.columns)
+suggested = column_mapping.suggest_mapping(raw_cols)
+_sig = abs(hash(tuple(raw_cols)))  # fresh mapping widgets when the file's columns change
+
+with st.expander("① Map your columns  —  auto-detected, confirm or correct", expanded=True):
+    st.caption("Your lab sheet can use any column names/order. Match each parameter "
+               "to a column in your file (or leave as *not in file*). Date & pH are required.")
+    mapping = {}
+    _ui = st.columns(3)
+    for _i, (field, label, required) in enumerate(column_mapping.CANONICAL_FIELDS):
+        options = ["(not in file)"] + raw_cols
+        default = suggested.get(field)
+        idx = options.index(default) if default in options else 0
+        sel = _ui[_i % 3].selectbox(
+            f"{label}{' *' if required else ''}", options, index=idx,
+            key=f"map_{_sig}_{field}")
+        if sel != "(not in file)":
+            mapping[field] = sel
+    st.caption(f"Auto-detected {len(suggested)} of {len(raw_cols)} columns.")
+
+_missing = [lbl for f, lbl, req in column_mapping.CANONICAL_FIELDS if req and f not in mapping]
+if _missing:
+    st.warning(f"Map the required field(s) to continue: **{', '.join(_missing)}**")
+    st.stop()
+
+# --- Validate + clean the mapped data ---
+parsed = parser.finalize(column_mapping.apply_mapping(raw, mapping))
 if not parsed["success"]:
     st.error(parsed["error"])
     st.stop()
@@ -101,7 +132,8 @@ if not parsed["success"]:
 df = parsed["data"]
 for w in parsed["warnings"]:
     st.warning(w)
-st.caption(f"Parsed {parsed['row_count']} rows · {parsed['date_range']}")
+st.caption(f"Parsed {parsed['row_count']} rows · {parsed['date_range']} · "
+           f"{len(mapping)} column(s) mapped")
 
 # --- Compliance ---
 overrides = {} if sector_choice == GENERAL else compliance.sector_overrides(sector_choice)
